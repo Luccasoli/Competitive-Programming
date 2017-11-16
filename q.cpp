@@ -1,51 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef pair< int , int > pii;
+#define PB push_back
+typedef unsigned long long ull;
+#define m 1000000007
 
-int menor()
+long long med(vector<ull> v)
 {
-
+	int t = v.size()-1;
+	sort(v.begin(), v.end());
+	if(v.size()%2)
+	{
+		return v[t/2];
+	}
+	else
+	{
+		return (v[t/2]+v[t/2+1])/2;
+	}
 }
+long long mediana;
 
 int main()
 {
-	ios_base::sync_with_stdio(0);cin.tie(0);cin.tie(0);
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    
+    ull n, aux;
+    cin >> n;
+    vector<ull> v;
 
-    int n, aux, cont = 0, resp = 0;
-    while(cin >> n and n)
+    for(int i = 0; i < n; i++)
     {
-        resp = 0;
-        cont = 0;
-        queue< pair<int, int> > v[n];
-
-        int cor[n];
-        memset(cor, 0, sizeof cor);
-
-        for(int i = 0; i < n; i++)
-        {
-            for(int j = 0; j < n; j++)
-            {
-                cin >> aux;
-                v[i].push(make_pair(aux, i));
-            }
-
-        }
-        while(cont++ < n)
-        {
-            priority_queue< pair<int, int>, vector< pair<int, int> >, greater< pair<int, int> > >pq;
-            for(int i = 0; i < n; i++)
-            {
-                if(!cor[i])
-                    pq.push(v[i].front());
-                v[i].pop();
-            }
-            resp += pq.top().first;
-            cor[pq.top().second] = 1;
-            //cout << resp << "**\n";
-        }
-
-        cout << resp << '\n';
+    	cin >> aux;
+    	v.push_back(aux);
+    	mediana += med(v);
     }
 
-
-	return 0;
+    cout << (mediana)%m<< '\n';
+    
+    return 0;
 }
